@@ -1,0 +1,163 @@
+{%extends "navbar.html"%}
+{%block content%}
+<script src="{{url_for('static',filename='chart.js/Chart.min.js')}}"></script>
+<section class="content-header">
+      <h1>
+        Sentiment Analysis 
+       
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{url_for('index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Sentiment Analysis</li>
+       
+      </ol>
+
+</section>
+
+<div class="pad margin no-print">
+      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <h4><i class="fa fa-info"></i> Note:</h4>
+        Datatest ini diambil dari data final yang sudah dilakukan preprocessing yang berasal dari 30 % Dataset Review Google PlaySotre Kaskus FJB Periode 2016-2019
+      </div>
+</div>
+
+<section class="content">
+	<div class="row">
+	<div class="col-xs-12">
+	    <div class="box box-success">
+	        <div class="box-header with-border">
+	        	<h3 class="title">Datatest</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+	        </div>
+	        <div class="box-body table-responsive ">
+	            {% for table in tables %}
+            
+                {{ table|safe }}
+              {% endfor %}
+	        </div>
+
+	    </div>
+      <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="title">Sentiment Data Prediction</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+          </div>
+          <div class="box-body table-responsive ">
+              {% for table in tablePredict %}
+            
+                {{ table|safe }}
+              {% endfor %}
+          </div>
+
+      </div>
+     
+       <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="title">Pie Chart Data Test</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+          </div>
+          <div class="box-body ">
+            <div class="chart-responsive">
+              <canvas id="chart" width="550" height="350"></canvas>
+              <script type="text/javascript">var pieData = [
+                    {% for data, labels, colors in set %}
+                      {
+                        value: {{data}},
+                        label: "{{labels}}",
+                        color : "{{colors}}"
+                      },
+                    {% endfor %}
+                  ]
+                   var pieOptions     = {
+                    //Boolean - Whether we should show a stroke on each segment
+                    segmentShowStroke    : true,
+                    //String - The colour of each segment stroke
+                    segmentStrokeColor   : '#fff',
+                    //Number - The width of each segment stroke
+                    segmentStrokeWidth   : 2,
+                    //Number - The percentage of the chart that we cut out of the middle
+                    percentageInnerCutout: 50, // This is 0 for Pie charts
+                    //Number - Amount of animation steps
+                    animationSteps       : 100,
+                    //String - Animation easing effect
+                    animationEasing      : 'easeOutBounce',
+                    //Boolean - Whether we animate the rotation of the Doughnut
+                    animateRotate        : true,
+                    //Boolean - Whether we animate scaling the Doughnut from the centre
+                    animateScale         : false,
+                    //Boolean - whether to make the chart responsive to window resizing
+                    responsive           : true,
+                    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+                    maintainAspectRatio  : false,
+                    //String - A legend template
+
+                    
+                  }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+   // pieChart.Doughnut(PieData, pieOptions)
+                  ;
+                  
+                  // draw pie chart
+                  new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData,pieOptions);
+              </script>
+            </div>
+             
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-smile-o"></i></span>
+
+                    <div class="info-box-content">
+                      <span class="info-box-text">Positif</span>
+                      <span class="info-box-number">{{persen_pos}} %</span>
+                    </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-frown-o"></i></span>
+
+                    <div class="info-box-content">
+                      <span class="info-box-text">Negative</span>
+                      <span class="info-box-number">{{persen_neg}} %</span>
+                    </div>
+                  <!-- /.info-box-content -->
+                </div>
+                 <div class="info-box">
+                      <span class="info-box-icon bg-aqua"><i class="fa fa-bullseye"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Accuracy</span>
+                    <span class="info-box-number">{{accuracy}} %</span>
+                  </div>
+                <!-- /.info-box-content -->
+              </div>
+          </div>
+
+      </div>
+      
+	</div>
+</div>
+</section>
+<script src="{{url_for('static',filename='jquery/dist/jquery.min.js')}}"></script>
+
+<script>
+$(document).ready(function() {
+    $('#tabel').DataTable();
+    $('#tabel2').DataTable();
+    $('#tabel3').DataTable();
+
+} );
+
+ 
+</script>
+
+  
+{%endblock content%}

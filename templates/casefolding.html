@@ -1,0 +1,52 @@
+{%extends "navbar.html"%}
+{%block content%}
+
+<section class="content-header">
+      <h1>
+        Casefolding 
+       
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{url_for('index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+         <li><i class="fa fa-database"></i> Preprocessing Data</li>
+        <li class="active">Casefolding</li>
+       
+      </ol>
+
+</section>
+
+<div class="pad margin no-print">
+      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <h4><i class="fa fa-info"></i> Note:</h4>
+       Casefolding merupakan merubah isi dataset menjadi huruf kecil semua.
+      </div>
+</div>
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="title">Dataset yang sudah di Casefolding</h3>
+            </div>
+            <div class="box-body table-responsive ">
+
+{% for table in tables %}
+            
+            {{ table|safe }}
+{% endfor %}
+  </div>
+
+        </div>
+    </div>
+</div>
+</section>
+<script src="{{url_for('static',filename='jquery/dist/jquery.min.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $('#tabel').DataTable({});
+} );
+</script>
+
+  
+{%endblock content%}

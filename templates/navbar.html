@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sentiment Analysis</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap/dist/css/bootstrap.min.css')}}">
+  <!-- Font Awesome -->
+ <link rel="stylesheet" href="{{url_for('static',filename='font-awesome/css/font-awesome.min.css')}}">
+  <!-- Ionicons -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{url_for('static',filename='datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='Ionicons/css/ionicons.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{url_for('static',filename='dist/css/AdminLTE.min.css')}}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{{url_for('static',filename='dist/css/skins/_all-skins.min.css')}}">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-green sidebar-mini">
+<div class="wrapper">
+
+            <!-- Navigation -->
+
+    <header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>SA</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Sentiment</b>Analysis</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+         
+       
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" style="height: auto;">
+      <!-- Sidebar user panel -->
+   
+     
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header"><center>MAIN MENU</center></li>
+       
+         
+        <li class="active">
+          <a href="{{url_for('index')}}">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            
+          </a>
+        </li>
+       
+        <li class="treeview ">
+          <a href="#">
+            <i class="fa fa-database"></i> <span>Preprocessing Data</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url_for('casedata')}}"><i class="fa fa-font"></i> Case Folding</a></li>
+            <li><a href="{{url_for('tokendata')}}"><i class="fa fa-object-group"></i> Tokenization</a></li>
+             <li><a href="{{url_for('stopwordsdata')}}"><i class="fa fa-cut"></i> Stop Words Removal</a></li>
+              <li><a href="{{url_for('stemmingdata')}}"><i class="fa fa-exchange"></i> Stemming</a></li>            
+          </ul>
+        </li>
+       
+         <li>
+          <a href="{{url_for('sentimentData')}}">
+            <i class="fa fa-smile-o"></i> <span>Sentiment Analysis</span>
+            
+          </a>
+        </li>
+       
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+<!-- ./wrapper -->
+<div class="content-wrapper">
+    
+     <!-- Content-->
+    {% block content %}
+    {%endblock%}
+
+</div>
+
+<!--Wrapper site -->
+</div>
+<!-- jQuery 3 -->
+<script src="{{url_for('static',filename='jquery/dist/jquery.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{url_for('static',filename='datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static',filename='datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{{url_for('static',filename='bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- SlimScroll -->
+<script src="{{url_for('static',filename='jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{url_for('static',filename='fastclick/lib/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url_for('static',filename='dist/js/adminlte.min.js')}}"></script>
+<script src="{{url_for('static',filename='chart.js/Chart.min.js')}}"></script>
+<script>
+  /** add active class and stay opened when selected */
+var url = window.location;
+
+// for sidebar menu entirely but not cover treeview
+$('ul.sidebar-menu a').filter(function() {
+   return this.href == url;
+}).parent().addClass('active');
+
+// for treeview
+$('ul.treeview-menu a').filter(function() {
+   return this.href == url;
+}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+</script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
+
+</script>
+</body>
+</html>
